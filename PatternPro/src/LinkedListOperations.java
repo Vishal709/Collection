@@ -1,6 +1,6 @@
 
 public class LinkedListOperations {
-	
+	static LinkedListOperations llo = new LinkedListOperations();
 	Node head;
 	class Node {
 		private String data;
@@ -138,26 +138,27 @@ public class LinkedListOperations {
 	public void reverseSinglyLinkedList() {
 		Node current=head;
 		Node prev = null;
-		Node next= null;
+		Node pointernext= null;
 		while(current!=null) {
+			pointernext=current.next;
+			current.next=prev;
 			prev=current;
-			current=current.next;
-			next=current.next.next;
+			current=pointernext;
+			head = prev;
 	//	System.out.println("reversed list is: "+next.data);
 		}
-		head=null;
 	}
 
 	public static void main(String[] args) {
 		//Scanner scan = new Scanner(System.in);
 		//String userInput = scan.next();
-		LinkedListOperations llo = new LinkedListOperations();
+		
 		
 
 		llo.InsertAtLastOrAppend("45");
 		llo.InsertAtLastOrAppend("99");
-		//llo.pushInFront("12");
-		//llo.InsertInBetweenSpecificNode(llo.head.next, "tyson");
+		llo.pushInFront("12");
+		llo.InsertInBetweenSpecificNode(llo.head.next, "tyson");
         System.out.println("\nLinked list is: "); 
 
 		llo.printLinkedList();
@@ -169,6 +170,8 @@ public class LinkedListOperations {
         
         //llo.cyclicNature();
         llo.findSecondLastElement2();
+        llo.reverseSinglyLinkedList();
+        llo.printLinkedList();
 
 		
 	}
