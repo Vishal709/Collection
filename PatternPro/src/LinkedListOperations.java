@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class LinkedListOperations {
 	
@@ -63,9 +62,93 @@ public class LinkedListOperations {
 			node=node.next;
 		}
 	}
+	
+	public void deleteElement(String dataOrkey) {
+		Node temp = head;Node prev = null;
+		if(temp !=null && temp.data.equalsIgnoreCase(dataOrkey)) {
+			head=temp.next;
+		}
+		while(!temp.data.equalsIgnoreCase(dataOrkey)) {
+			prev=temp;
+			temp=temp.next;
+		}
+		
+		
+		prev.next=temp.next;
+		
+	}
+	
+	public void cyclicNature() {
+		Node slowPointer=head;
+		Node fastPointer=head;
+		while(slowPointer != null && fastPointer != null) {
+				slowPointer=slowPointer.next;
+				fastPointer=fastPointer.next.next;
+			if(slowPointer.next == fastPointer.next.next) {
+				System.out.println("Linkedlist is cyclic.");
+				return;
+			}
+			else System.out.println("Singlylinkedlist");
+		}
+	}
+	public void cyclicLinkedlist() {
+		Node node = head;
+		while(node.next != null) {
+			node=node.next;
+		}
+		node.next=head;
+	}
+	/*public void findSecondLastElement() {
+		Node slowPointer = head;
+		Node fastPointer=head;
+		while(slowPointer != null && fastPointer !=null) {
+			slowPointer = slowPointer.next;
+			fastPointer=fastPointer.next.next;
+		if(fastPointer.next.next == null) {
+			slowPointer=slowPointer.next;
+			System.out.println("secondLastElement: "+slowPointer.data);
+			break;
+		}
+		else {
+			System.out.println("its  a circular linkedList");
+		}
+		}
+	}*/
+	
+	public void findSecondLastElement2() {
+		Node slowPointer = head;
+		Node fastPointer=head.next;
+		if(fastPointer==null) {
+			System.out.println("list contain only one element : "+head.data);
+		}
+		else {
+		while( fastPointer !=null) {
+			if(fastPointer.next==null) {
+				System.out.println("second last lement is :"+slowPointer.data);
+				break;
+			}
+			else {
+				slowPointer	=slowPointer.next;
+				fastPointer=fastPointer.next;
+			}
+			
+		}
+		}
+	}
+	public void reverseSinglyLinkedList() {
+		Node current=head;
+		Node prev = null;
+		Node next= null;
+		while(current!=null) {
+			prev=current;
+			current=current.next;
+			next=current.next.next;
+	//	System.out.println("reversed list is: "+next.data);
+		}
+		head=null;
+	}
 
 	public static void main(String[] args) {
-		System.out.println("enter data to enter to linkedList:");
 		//Scanner scan = new Scanner(System.in);
 		//String userInput = scan.next();
 		LinkedListOperations llo = new LinkedListOperations();
@@ -73,11 +156,20 @@ public class LinkedListOperations {
 
 		llo.InsertAtLastOrAppend("45");
 		llo.InsertAtLastOrAppend("99");
-		llo.pushInFront("12");
-		llo.InsertInBetweenSpecificNode(llo.head.next, "tyson");
+		//llo.pushInFront("12");
+		//llo.InsertInBetweenSpecificNode(llo.head.next, "tyson");
         System.out.println("\nLinked list is: "); 
 
 		llo.printLinkedList();
+		//llo.deleteElement("45");
+		//llo.cyclicLinkedlist();
+		
+        System.out.println("\nUpdated Linked list is: "); 
+        //llo.printLinkedList();
+        
+        //llo.cyclicNature();
+        llo.findSecondLastElement2();
+
 		
 	}
 }
