@@ -1,0 +1,112 @@
+package com.dataStructure;
+
+import java.util.*;
+//error : time exceeded (acc. to me most obvious for bigger ranges) 
+public class AbsoluteTryTechgig{
+
+    static int evenOrOdd (Long element){
+        Long result=element%2;
+        if(result == 0){
+            return 1;
+        }
+		return 0;
+        
+    }
+    static List<Long> elementsInRange(long from, long limit) {
+        List<Long> numbers = new ArrayList<>();
+        for (long to = limit; from<=to; ++from) {
+            numbers.add(from);
+        }
+        return numbers;
+    } 
+
+    static int countElementDigits(long element){
+        int count = 0;
+        while(element != 0){
+        	
+        	 element=element/10;
+        	 ++count;
+        }
+        return count;
+    }
+    static List<Integer> splitElement(long element){
+        List<Integer> list=new ArrayList<>();
+        String str= String.valueOf(element);
+        char[] cArray = str.toCharArray();
+        for(char c : cArray) {
+        	int d = Character.getNumericValue(c); 
+        	list.add(d);
+        }
+        
+        return list;
+    } 
+
+    public static void main(String args[] ) throws Exception {
+    	List<Long> list=new ArrayList <>();
+        long sum=0;
+        Scanner scan = new Scanner(System.in);
+        int testCount = scan.nextInt();
+        double rangeConstraint= Math.pow(10, 10);
+        long finalConstraint=Math.round(rangeConstraint);
+        int countEven=0;
+        if(testCount >=1 && testCount<=10){
+        	for(int i = 0; i<testCount; i++){
+        		long testInput1 = scan.nextLong();
+        		long testInput2 = scan.nextLong();
+        		if(testInput1 >=1 && testInput1 <= testInput2 && testInput2 <=finalConstraint) {
+        			list=elementsInRange(testInput1,testInput2);
+        			for(Long element : list){
+        				int countElementDigits=countElementDigits(element);
+        				if(countElementDigits ==1){
+        					int isEven=evenOrOdd(element);
+        					if(isEven==1) {
+        						++countEven;
+        					}
+        				}                   
+               
+        				else{
+        					List <Integer> listSplittedElemnts=splitElement(element);
+        					List<String> newList= new ArrayList<>();
+        					String s3=null;
+        					int next=0;
+        					for(int k : listSplittedElemnts){
+        						String s1 = String.valueOf(k);
+        						newList.add(s1);
+        						for(int j=next+1 ; j < listSplittedElemnts.size(); j++){
+        							String s2 = String.valueOf(listSplittedElemnts.get(j));
+        							s3=s1.concat(s2);
+        							newList.add(s3);
+        						}
+        						++next;
+        					}
+        					if(!s3.equalsIgnoreCase(String.valueOf(element))) {
+        						String s4 =  String.valueOf(element);
+        						newList.add(s4);
+        					}
+        					for(String eachElemnt : newList){
+        						int num = Integer.parseInt(eachElemnt);
+        						sum+=num;
+        					}
+
+        					int isEven= evenOrOdd(sum);
+        					if(isEven == 1){
+        						++countEven;
+        					}
+        				}
+        			}
+        		}
+				else{
+					return;
+				}
+                System.out.println(countEven);
+
+        	}
+        }
+		else{
+			return;
+		}
+    
+        scan.close();
+    }
+}
+
